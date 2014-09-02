@@ -1,30 +1,39 @@
 doctype html
-html(lang="en" ng-app="registration")
+html(lang="en" ng-app="cbn")
 	head
 		title Customer Registration
 		link(rel='stylesheet', href='/stylesheets/customer-registration.css')
 		script(src="/bower_components/angular/angular.js")
 		script(src="/js/controllers.js")
-	body(ng-controller="registrationCtrl")
+	body(ng-controller="registrationCtrl" ng-init="init(#{JSON.stringify(mode)})")
 		div(class="main")
-			h1(class="heading") <b>Registration</b>
+			if mode == 'edit'
+				h1(class="heading") <b>Update Personal Information</b>
+			else
+				h1(class="heading") <b>Register Personal Information</b>
 			div(class="element")
 				font(class="textDetails") <b>Full Name :</b> 
 				input(class="inputDetails" ng-model="name")
 			div(class="element")
 				font(class="textDetails") <b>Email ID :</b> 
 				input(class="inputDetails" ng-model="email")
-			div(class="element")
-				font(class="textDetails") <b>Retype Email ID :</b> 
-				input(class="inputDetails" ng-model="emailRepeat")
+			if mode != 'edit'
+				div(class="element")
+					font(class="textDetails") <b>Retype Email ID :</b> 
+					input(class="inputDetails" ng-model="emailRepeat")
 			div(class="element")
 				font(class="textDetails") <b>Mobile Number :</b> 
 				input(class="inputDetails" ng-model="mobile")
-			div(class="element")
-				font(class="textDetails") <b>Enter new password :</b> 
-				input(class="inputDetails" ng-model="password")
-			div(class="element")
-				font(class="textDetails") <b>Retype password :</b> 
-				input(class="inputDetails" ng-model="passwordRepeat")
-			div(class="submitBtnDiv")
-				button(class="submitBtn") Create Account
+			if mode != 'edit'
+				div(class="element")
+					font(class="textDetails") <b>Enter new password :</b> 
+					input(class="inputDetails" ng-model="password")
+				div(class="element")
+					font(class="textDetails") <b>Retype password :</b> 
+					input(class="inputDetails" ng-model="passwordRepeat")
+			if mode == 'edit'
+				div(class="submitBtnDiv")
+					button(class="submitBtn") Update Account
+			else
+				div(class="submitBtnDiv")
+					button(class="submitBtn") Create Account

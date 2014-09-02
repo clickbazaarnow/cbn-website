@@ -42,8 +42,18 @@ app.use(connectDomain())
 	.get('/', function(req, res){
 		res.render('layout', {});
 	})
-	.get('/registration', function(req, res) {
-		res.render('customer-registration', {});
+	.get('/render', function(req, res) {
+		if(req.query.name === "registration") {
+			res.render('customer-registration', {mode:req.query.mode});
+		}
+	})
+	.get('/user/:id', function(req, res) {
+		var userInfo = {
+			name:"sudheer",
+			email:"sudheer.624@gmail.com",
+			mobile:"2134009724"
+		};
+		res.send(userInfo);
 	})
 	.use(function(err, req, res, next) {
 		log.error("Got error : " + err.message);
