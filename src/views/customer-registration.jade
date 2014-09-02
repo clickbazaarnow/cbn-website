@@ -1,0 +1,30 @@
+doctype html
+html(lang="en" ng-app="registration")
+	head
+		title Customer Registration
+		link(rel='stylesheet', href='/stylesheets/customer-registration.css')
+		script(src="bower_components/angular/angular.js")
+		script(src="/js/controllers.js")
+	body(ng-controller="registrationCtrl")
+		div(class="main")
+			h1(class="heading") <b>Registration</b>
+			div(class="element")
+				font(class="textDetails") <b>Full Name :</b> 
+				input(class="inputDetails" ng-model="name")
+			div(class="element")
+				font(class="textDetails") <b>Email ID :</b> 
+				input(class="inputDetails" ng-model="email")
+			div(class="element")
+				font(class="textDetails") <b>Retype Email ID :</b> 
+				input(class="inputDetails" ng-model="emailRepeat")
+			div(class="element")
+				font(class="textDetails") <b>Mobile Number :</b> 
+				input(class="inputDetails" ng-model="mobile")
+			div(class="element")
+				font(class="textDetails") <b>Enter new password :</b> 
+				input(class="inputDetails" ng-model="password")
+			div(class="element")
+				font(class="textDetails") <b>Retype password :</b> 
+				input(class="inputDetails" ng-model="passwordRepeat")
+			div(class="submitBtnDiv")
+				button(class="submitBtn") Create Account

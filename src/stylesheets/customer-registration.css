@@ -1,0 +1,41 @@
+@import url("http://fonts.googleapis.com/css?family=Quicksand");
+.main{
+	border-style: dotted;
+	border-width: 1px;
+	border-color:#3B240B;
+	width:700px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.heading{
+	color:orange;
+	text-align:left;
+	font-size: 25px;
+	padding-left:25px;
+}
+.textDetails{
+	font-size: 15px;
+	width:200px;
+}
+.inputDetails{
+	width:300px;
+	height:18px;
+}
+.element{
+	width:500px;
+	text-align:right;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+.submitBtn{
+	text-align:center;
+	font-size:15px;
+	width:150px;
+	height:30px;
+}
+.submitBtnDiv{
+	text-align:center;
+	width:100%;
+	padding-top:5px;
+	padding-bottom:5px;
+}

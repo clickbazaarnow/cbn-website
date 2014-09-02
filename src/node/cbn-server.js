@@ -3,15 +3,17 @@ var bunyan = require('bunyan');
 var cluster = require('cluster');
 var connectDomain = require('connect-domain');
 var fs = require('fs');
+var path = require('path');
 
 var NUM_WORKERS = 1;
+var ROOT_DIR = "build";
 
 var app = express();
 var log = bunyan.createLogger({
     name: 'cbn',
     streams: [{
         type: 'rotating-file',
-        path: 'build/output/logs/cbn.log',
+        path: path.join(ROOT_DIR, 'output/logs/cbn.log'),
         period: '1d',   // daily rotation
 		level: bunyan.DEBUG
     }]
@@ -33,11 +35,15 @@ if (cluster.isMaster) {
 	app.listen(3000);
 }
 
+app.set('views', path.join(ROOT_DIR, 'views'));
+app.set('view engine', 'jade');
+app.use(express.static(path.join(ROOT_DIR, 'public')));
 app.use(connectDomain())
 	.get('/', function(req, res){
-		throw new Error("some error was thrown");
-		res.send('hello world');
-		log.info("sent reponse");
+		res.render('layout', {});
+	})
+	.get('/registration', function(req, res) {
+		res.render('customer-registration', {});
 	})
 	.use(function(err, req, res, next) {
 		log.error("Got error : " + err.message);
