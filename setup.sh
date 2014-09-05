@@ -20,9 +20,14 @@ if [ ! -d "build/public/js" ]; then
 	mkdir -p "build/public/js"
 fi
 
+if [ ! -d "build/public/images" ]; then
+	mkdir -p "build/public/images"
+fi
+
 cp ./src/node/* build/node-root
 cp ./src/views/* build/views
 cp ./src/stylesheets/* build/public/stylesheets
 cp ./src/js/* build/public/js
+cp ./src/images/* build/public/images
 cp -r bower_components ./build/public
 node ./build/node-root/cbn-server.js
