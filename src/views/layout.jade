@@ -14,8 +14,11 @@ html(lang="en" ng-app="cbn")
 				span(class="fadingLine")
 				input(class="searchBar" ng-model="query" placeholder="Search for product..." required)
 				input(class="searchButton" type="button" value="Search")
+				div(class="trackArrowDown")
 				a(class="trackButton" href="") Track your order
+				div(class="cartArrowDown")
 				a(class="cartButton" href="") Cart
+				div(class="accountArrowDown")
 				a(class="accountButton" href="/render?name=registration") Your Account
 		.details
 			block details-pane
