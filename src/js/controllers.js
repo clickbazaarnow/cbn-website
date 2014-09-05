@@ -14,3 +14,23 @@ cbnApp.controller('registrationCtrl', function($scope, $http) {
 		}
 	}
 });
+
+var EMAIL_REGEX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+cbnApp.directive('validateEmail', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+      ctrl.$parsers.unshift(function(viewValue) {
+		if (EMAIL_REGEX.test(viewValue)) {
+          // it is valid
+          ctrl.$setValidity('email', true);
+          return viewValue;
+        } else {
+          // it is invalid, return undefined (no model update)
+          ctrl.$setValidity('email', false);
+          return undefined;
+        }
+      });
+    }
+  };
+});

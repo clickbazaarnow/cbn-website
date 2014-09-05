@@ -46,6 +46,9 @@ app.use(connectDomain())
 		if(req.query.name === "registration") {
 			res.render('customer-registration', {mode:req.query.mode});
 		}
+		if(req.query.name === 'main') {
+			res.render('main', {});
+		}
 	})
 	.get('/user/:id', function(req, res) {
 		var userInfo = {

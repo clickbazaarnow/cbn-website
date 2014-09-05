@@ -3,7 +3,7 @@
 	border-style: dotted;
 	border-width: 1px;
 	border-color:#3B240B;
-	width:700px;
+	width:800px;
 	margin-left:auto;
 	margin-right:auto;
 }
@@ -15,15 +15,18 @@
 }
 .textDetails{
 	font-size: 15px;
+	float:left;
 	width:200px;
+	text-align:right;
+	padding-right:5px;
 }
 .inputDetails{
 	width:300px;
 	height:18px;
 }
 .element{
-	width:500px;
-	text-align:right;
+	width:800px;
+	text-align:left;
 	padding-top:5px;
 	padding-bottom:5px;
 }
@@ -38,4 +41,10 @@
 	width:100%;
 	padding-top:5px;
 	padding-bottom:5px;
+}
+.inputError{
+	color:red;
+	font-size:15px;
+	float:right;
+	padding-right:5px;
 }
