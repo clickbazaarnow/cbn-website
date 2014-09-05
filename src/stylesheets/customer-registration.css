@@ -1,11 +1,11 @@
 @import url("http://fonts.googleapis.com/css?family=Quicksand");
 .main{
-	border-style: dotted;
+	border-style: solid;
 	border-width: 1px;
-	border-color:#3B240B;
-	width:800px;
+	border-color:#BDBDBD;
 	margin-left:auto;
 	margin-right:auto;
+	margin-top:5px;
 }
 .heading{
 	color:orange;
@@ -25,7 +25,6 @@
 	height:18px;
 }
 .element{
-	width:800px;
 	text-align:left;
 	padding-top:5px;
 	padding-bottom:5px;

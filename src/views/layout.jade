@@ -1,15 +1,23 @@
 doctype html
-html(lang="en")
+html(lang="en" ng-app="cbn")
 	head
-		title CBN Layout
-		link(rel='stylesheet', href='/stylesheets/style.css')
+		title Customer Registration
+		link(rel='stylesheet', href='/stylesheets/main.css')
+		link(rel='stylesheet', href='/stylesheets/customer-registration.css')
+		script(src="/bower_components/angular/angular.js")
+		script(src="/js/controllers.js")
 	body
-		header
-			h1 Search Simplified!
-		.search-bar
-			block search-bar-content
-		.container
-		.left-pane
-			block left-pane-content
-		.main-content
-			block content
+		.header
+			div(class="logo")
+				img(class="logoImg" src="/stylesheets/logo.png")
+			div(class="headerLower")
+				span(class="fadingLine")
+				input(class="searchBar" ng-model="query" placeholder="Search for product..." required)
+				input(class="searchButton" type="button" value="Search")
+				a(class="trackButton" href="") Track your order
+				a(class="cartButton" href="") Cart
+				a(class="accountButton" href="/render?name=registration") Your Account
+		.details
+			block details-pane
+		.alert
+			block alerts-pane

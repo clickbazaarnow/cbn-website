@@ -1,43 +1,37 @@
-doctype html
-html(lang="en" ng-app="cbn")
-	head
-		title Customer Registration
-		link(rel='stylesheet', href='/stylesheets/customer-registration.css')
-		script(src="/bower_components/angular/angular.js")
-		script(src="/js/controllers.js")
-	body(ng-controller="registrationCtrl" ng-init="init(#{JSON.stringify(mode)})")
-		form(class="main" name="registrationForm" novalidate)
-			if mode == 'edit'
-				h1(class="heading") <b>Update Personal Information</b>
-			else
-				h1(class="heading") <b>Register Personal Information</b>
+extend layout
+block details-pane
+	form(class="main" name="registrationForm" ng-controller="registrationCtrl" ng-init="init(#{JSON.stringify(mode)})" novalidate)
+		if mode == 'edit'
+			h1(class="heading") <b>Update Personal Information</b>
+		else
+			h1(class="heading") <b>Register Personal Information</b>
+		div(class="element")
+			span(class="textDetails") <b>Full Name :</b> 
+			input(class="inputDetails" ng-model="user.name" name="name" required)
+			span(class="inputError" ng-show="registrationForm.name.$dirty && registrationForm.name.$error.required") Please enter your full name
+		div(class="element")
+			font(class="textDetails") <b>Email ID :</b> 
+			input(class="inputDetails" ng-model="user.email" name="email" validate-email="email")
+			span(class="inputError" ng-show="registrationForm.email.$dirty && registrationForm.email.$error.email") Please enter valid email
+		if mode != 'edit'
 			div(class="element")
-				span(class="textDetails") <b>Full Name :</b> 
-				input(class="inputDetails" ng-model="user.name" name="name" required)
-				span(class="inputError" ng-show="registrationForm.name.$dirty && registrationForm.name.$error.required") Please enter your full name
+				font(class="textDetails") <b>Retype Email ID :</b> 
+				input(class="inputDetails" ng-model="user.emailRepeat" name="emailRepeat" match-email="emailRepeat")
+				span(class="inputError" ng-show="registrationForm.emailRepeat.$dirty && registrationForm.emailRepeat.$error.email") Please enter valid email
+		div(class="element")
+			font(class="textDetails") <b>Mobile Number :</b> 
+			input(class="inputDetails" ng-model="user.mobile" name="mobile" required)
+			span(class="inputError" ng-show="registrationForm.mobile.$dirty && registrationForm.mobile.$error.required") Please enter valid mobile number
+		if mode != 'edit'
 			div(class="element")
-				font(class="textDetails") <b>Email ID :</b> 
-				input(class="inputDetails" ng-model="user.email" name="email" validate-email="email")
-				span(class="inputError" ng-show="registrationForm.email.$dirty && registrationForm.email.$error.email") Please enter valid email
-			if mode != 'edit'
-				div(class="element")
-					font(class="textDetails") <b>Retype Email ID :</b> 
-					input(class="inputDetails" ng-model="user.emailRepeat" name="emailRepeat" match-email="emailRepeat")
-					span(class="inputError" ng-show="registrationForm.emailRepeat.$dirty && registrationForm.emailRepeat.$error.email") Please enter valid email
+				font(class="textDetails") <b>Enter new password :</b> 
+				input(class="inputDetails" ng-model="password")
 			div(class="element")
-				font(class="textDetails") <b>Mobile Number :</b> 
-				input(class="inputDetails" ng-model="user.mobile" name="mobile" required)
-				span(class="inputError" ng-show="registrationForm.mobile.$dirty && registrationForm.mobile.$error.required") Please enter valid mobile number
-			if mode != 'edit'
-				div(class="element")
-					font(class="textDetails") <b>Enter new password :</b> 
-					input(class="inputDetails" ng-model="password")
-				div(class="element")
-					font(class="textDetails") <b>Retype password :</b> 
-					input(class="inputDetails" ng-model="passwordRepeat")
-			if mode == 'edit'
-				div(class="submitBtnDiv")
-					button(class="submitBtn") Update Account
-			else
-				div(class="submitBtnDiv")
-					button(class="submitBtn") Create Account
+				font(class="textDetails") <b>Retype password :</b> 
+				input(class="inputDetails" ng-model="passwordRepeat")
+		if mode == 'edit'
+			div(class="submitBtnDiv")
+				button(class="submitBtn") Update Account
+		else
+			div(class="submitBtnDiv")
+				button(class="submitBtn") Create Account
