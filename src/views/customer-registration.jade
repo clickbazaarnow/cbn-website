@@ -7,20 +7,20 @@ block details-pane
 			h1(class="heading") <b>Register Personal Information</b>
 		div(class="element")
 			span(class="textDetails") <b>Full Name :</b> 
-			input(class="inputDetails" ng-model="user.name" name="name" required)
+			input(class="inputDetails" ng-model="name" name="name" required)
 			span(class="inputError" ng-show="registrationForm.name.$dirty && registrationForm.name.$error.required") Please enter your full name
 		div(class="element")
 			font(class="textDetails") <b>Email ID :</b> 
-			input(class="inputDetails" ng-model="user.email" name="email" validate-email="email")
+			input(class="inputDetails" ng-model="email" name="email" validate-email="email")
 			span(class="inputError" ng-show="registrationForm.email.$dirty && registrationForm.email.$error.email") Please enter valid email
 		if mode != 'edit'
 			div(class="element")
 				font(class="textDetails") <b>Retype Email ID :</b> 
-				input(class="inputDetails" ng-model="user.emailRepeat" name="emailRepeat" match-email="emailRepeat")
+				input(class="inputDetails" ng-model="emailRepeat" name="emailRepeat" match-email="emailRepeat")
 				span(class="inputError" ng-show="registrationForm.emailRepeat.$dirty && registrationForm.emailRepeat.$error.email") Please enter valid email
 		div(class="element")
 			font(class="textDetails") <b>Mobile Number :</b> 
-			input(class="inputDetails" ng-model="user.mobile" name="mobile" required)
+			input(class="inputDetails" ng-model="mobile" name="mobile" required)
 			span(class="inputError" ng-show="registrationForm.mobile.$dirty && registrationForm.mobile.$error.required") Please enter valid mobile number
 		if mode != 'edit'
 			div(class="element")
