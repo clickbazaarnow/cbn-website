@@ -15,7 +15,7 @@ var log = bunyan.createLogger({
         type: 'rotating-file',
         path: path.join(ROOT_DIR, 'output/logs/cbn.log'),
         period: '1d',   // daily rotation
-		level: bunyan.DEBUG
+        level: bunyan.DEBUG
     }]
 });
 log.on('error', function (err, stream) {
@@ -23,43 +23,43 @@ log.on('error', function (err, stream) {
 });
 
 if (cluster.isMaster) {
-	// Fork workers.
-	for (var i = 0; i < NUM_WORKERS; i++) {
-		cluster.fork();
-  	}
+    // Fork workers.
+    for (var i = 0; i < NUM_WORKERS; i++) {
+        cluster.fork();
+      }
 
-	cluster.on('exit', function(worker, code, signal) {
-    	log.error('worker ' + worker.process.pid + ' died');
-  	});
+    cluster.on('exit', function(worker, code, signal) {
+        log.error('worker ' + worker.process.pid + ' died');
+      });
 } else {
-	app.listen(3000);
+    app.listen(3000);
 }
 
 app.set('views', path.join(ROOT_DIR, 'views'));
 app.set('view engine', 'jade');
 app.use(express.static(path.join(ROOT_DIR, 'public')));
 app.use(connectDomain())
-	.get('/', function(req, res){
-		res.render('layout', {});
-	})
-	.get('/render', function(req, res) {
-		if(req.query.name === "registration") {
-			res.render('customer-registration', {mode:req.query.mode});
-		}
-		if(req.query.name === 'main') {
-			res.render('main', {});
-		}
-	})
-	.get('/user/:id', function(req, res) {
-		var userInfo = {
-			name:"sudheer",
-			email:"sudheer.624@gmail.com",
-			mobile:"2134009724"
-		};
-		res.send(userInfo);
-	})
-	.use(function(err, req, res, next) {
-		log.error("Got error : " + err.message);
-		res.send("Got an unexpected error in server");
-	});
+    .get('/', function(req, res){
+        res.render('layout', {});
+    })
+    .get('/render', function(req, res) {
+        if(req.query.name === "registration") {
+            res.render('customer-registration', {mode:req.query.mode});
+        }
+        if(req.query.name === 'main') {
+            res.render('main', {});
+        }
+    })
+    .get('/user/:id', function(req, res) {
+        var userInfo = {
+            name:"sudheer",
+            email:"sudheer.624@gmail.com",
+            mobile:"2134009724"
+        };
+        res.send(userInfo);
+    })
+    .use(function(err, req, res, next) {
+        log.error("Got error : " + err.message);
+        res.send("Got an unexpected error in server");
+    });
 

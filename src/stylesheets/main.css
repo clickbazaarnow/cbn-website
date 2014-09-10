@@ -1,29 +1,29 @@
 .header{
-	height:100px;
-	background-color: white;
+    height:100px;
+    background-color: white;
 }
 .details{
-	width: 775px;
-	height:400px;
-	margin-left:150px;
-	#background-color: #A4A4A4;
-	float:left;
+    width: 775px;
+    height:400px;
+    margin-left:150px;
+    #background-color: #A4A4A4;
+    float:left;
 }
 .alerts{
-	width:200px;
-	height:400px;
-	margin-right:150px;
-	background-color: #A4A4A4;
-	float:right;
-	display:block;
+    width:200px;
+    height:400px;
+    margin-right:150px;
+    background-color: #A4A4A4;
+    float:right;
+    display:block;
 }
 .logo{
-	width:100px;
-	float:left;
+    width:100px;
+    float:left;
 }
 .logoImg{
-	width:200px;
-	height:50px;
+    width:200px;
+    height:50px;
 }
 .fadingLine{ 
     display:block;
@@ -34,109 +34,109 @@
     background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 570, from(#BDBDBD), to(#fff));
 }
 .headerLower{
-	height:50px;
-	float:left;
-	width:100%;
-	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #F2F2F2), color-stop(1, #F2F2F2) );
-	background: -moz-linear-gradient( center top, #F2F2F2 5%, #F2F2F2 100% );
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F2F2F2', endColorstr='#F2F2F2');
-	background-color: #F2F2F2;
-	border-bottom: 1px solid #BDBDBD;
+    height:50px;
+    float:left;
+    width:100%;
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #F2F2F2), color-stop(1, #F2F2F2) );
+    background: -moz-linear-gradient( center top, #F2F2F2 5%, #F2F2F2 100% );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F2F2F2', endColorstr='#F2F2F2');
+    background-color: #F2F2F2;
+    border-bottom: 1px solid #BDBDBD;
 }
 .searchBar{
-	margin-top:10px;
-	margin-left:11.5%;
-	height:30px;
-	width:550px;
+    margin-top:10px;
+    margin-left:11.5%;
+    height:30px;
+    width:550px;
 }
 .searchButton{
     position:relative;
     padding:6px 15px;
     left:-84px;
-	top:2px;
+    top:2px;
     border:2px solid #207cca;
     background-color:#207cca;
     color:#fafafa;
-	font-size:15px;
+    font-size:15px;
 }
 .accountButton {
     color:black;
-	font-size:15px;
-	font-weight:bold;
-	width:150px;
-	height:40px;
-	float:right;
-	text-align:center;
-	line-height: 50px;
-	margin-top:5px;
-	font-family: 'Georgia';
+    font-size:15px;
+    font-weight:bold;
+    width:150px;
+    height:40px;
+    float:right;
+    text-align:center;
+    line-height: 50px;
+    margin-top:5px;
+    font-family: 'Georgia';
 }
 .accountButton:hover {
-	border: 1px solid #DCDCDC;
+    border: 1px solid #DCDCDC;
 }
 .cartButton {
     color:black;
-	font-size:15px;
-	font-weight:bold;
-	width:90px;
-	height:40px;
-	float:right;
-	text-align:right;
-	line-height: 50px;
-	margin-top:5px;
-	font-family: 'Georgia';
-	background:url('/images/cart.png') no-repeat left top;
-	background-size: 60px 40px;
-	padding-right:20px;
+    font-size:15px;
+    font-weight:bold;
+    width:90px;
+    height:40px;
+    float:right;
+    text-align:right;
+    line-height: 50px;
+    margin-top:5px;
+    font-family: 'Georgia';
+    background:url('/images/cart.png') no-repeat left top;
+    background-size: 60px 40px;
+    padding-right:20px;
 }
 .cartButton:hover {
-	border: 1px solid #DCDCDC;
+    border: 1px solid #DCDCDC;
 }
 .trackButton {
-	color:black;
-	font-size:15px;
-	font-weight:bold;
-	width:170px;
-	height:40px;
-	float:right;
-	text-align:center;
-	line-height: 50px;
-	margin-top:5px;
-	font-family: 'Georgia';
+    color:black;
+    font-size:15px;
+    font-weight:bold;
+    width:170px;
+    height:40px;
+    float:right;
+    text-align:center;
+    line-height: 50px;
+    margin-top:5px;
+    font-family: 'Georgia';
 }
 .trackButton:hover {
-	border: 1px solid #DCDCDC;
+    border: 1px solid #DCDCDC;
 }
 .accountArrowDown {
-	position:relative;
-	width: 0; 
-	height: 0; 
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-top: 5px solid black;
-	float:right;
-	margin-top:30px;
-	left:-20px;
+    position:relative;
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+    float:right;
+    margin-top:30px;
+    left:-20px;
 }
 .cartArrowDown {
-	position:relative;
-	width: 0; 
-	height: 0; 
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-top: 5px solid black;
-	float:right;
-	margin-top:30px;
-	left:-15px;
+    position:relative;
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+    float:right;
+    margin-top:30px;
+    left:-15px;
 }
 .trackArrowDown {
-	position:relative;
-	width: 0; 
-	height: 0; 
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-top: 5px solid black;
-	float:right;
-	margin-top:30px;
-	left:-15px;
+    position:relative;
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+    float:right;
+    margin-top:30px;
+    left:-15px;
 }

@@ -1,27 +1,27 @@
 if [ ! -d "build" ]; then
-	mkdir -p build/node-root
-	mkdir -p build/output/logs
+    mkdir -p build/node-root
+    mkdir -p build/output/logs
 fi
 
 if [ ! -f "build/output/logs/cbn.log" ]; then
-	echo "log file doen't exist, creating one"
-	touch build/output/logs/cbn.log
+    echo "log file doen't exist, creating one"
+    touch build/output/logs/cbn.log
 fi
 
 if [ ! -d "build/public/stylesheets" ]; then
-	mkdir -p "build/public/stylesheets"
+    mkdir -p "build/public/stylesheets"
 fi
 
 if [ ! -d "build/views" ]; then
-	mkdir -p "build/views"
+    mkdir -p "build/views"
 fi
 
 if [ ! -d "build/public/js" ]; then
-	mkdir -p "build/public/js"
+    mkdir -p "build/public/js"
 fi
 
 if [ ! -d "build/public/images" ]; then
-	mkdir -p "build/public/images"
+    mkdir -p "build/public/images"
 fi
 
 cp ./src/node/* build/node-root
