@@ -1,0 +1,73 @@
+Tables
+CustomerInformation
+    customer-id
+    name
+    email-id
+    password
+    mobile
+
+CustomerShippingInformation
+    address-line-1
+    address-line-2
+    city
+    state
+    zip-code
+
+CustomerPaymentInformation
+
+CustomerCartInformation
+    customer-id
+    List(PUID:Quantity)
+
+CustomerOrderInformation
+
+ProductInformation
+    PUID
+    retail-id
+    title
+    features
+    is-displayable
+    have-children
+    ProductDetails
+        dimensions
+        weight
+
+ProductSellingInformation
+    selling-price
+    source-vendor
+
+ProductDescription
+    PUID
+    description
+
+ProductReviews
+    PUID
+    List(cust-id:review)    
+
+ProductInventoryInformation
+    PUID
+    Quantity
+    location
+
+ProductRelationships
+    parent-PUID
+    child-PUID
+    relationship-type
+    
+VendorInformation
+    vendor-id
+    name
+    email-id
+    address
+    selling-product-lines
+
+VendorContribution
+    vendor-id
+    PUID
+    cost
+
+Workflows
+customer-purchase-workflow
+customer-make-offer-workflow
+
+Product Line specific attributes
