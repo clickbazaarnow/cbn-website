@@ -7,6 +7,8 @@
         "jade":"*",
         "bower":"*",
         "bunyan":"*",
-        "connect-domain":"*"
+        "connect-domain":"*",
+        "aws-sdk":"*",
+        "vogels":"*"
     }
 }

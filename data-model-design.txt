@@ -21,6 +21,7 @@ CustomerCartInformation
 
 CustomerOrderInformation
 
+ProductIDGenerator
 ProductInformation
     PUID
     retail-id
