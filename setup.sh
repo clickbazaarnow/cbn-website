@@ -24,7 +24,7 @@ if [ ! -d "build/public/images" ]; then
     mkdir -p "build/public/images"
 fi
 
-cp ./src/node/* build/node-root
+cp -r ./src/node/* build/node-root
 cp ./src/views/* build/views
 cp ./src/stylesheets/* build/public/stylesheets
 cp ./src/js/* build/public/js

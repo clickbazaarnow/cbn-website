@@ -9,6 +9,8 @@
         "bunyan":"*",
         "connect-domain":"*",
         "aws-sdk":"*",
-        "vogels":"*"
+        "vogels":"*",
+        "mocha":"*",
+        "should":"*"
     }
 }
