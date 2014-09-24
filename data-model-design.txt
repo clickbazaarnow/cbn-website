@@ -1,29 +1,44 @@
 Tables
+Given email-id, get me cust info
+given email-id and password, verify and provide authorization
 CustomerInformation
-    customer-id
+    *emailId
     name
-    email-id
     password
     mobile
+    isActive
+    contactInfo
+       addressLine1
+        addressLine2
+        city
+        state
+        zip-code
+    updatedTime
+    updatedBy
+
+
 
 CustomerShippingInformation
-    address-line-1
-    address-line-2
-    city
-    state
-    zip-code
+    *PUID
+    List
+        address-line-1
+        address-line-2
+        city
+        state
+        zip-code
 
 CustomerPaymentInformation
 
 CustomerCartInformation
-    customer-id
+    *customer-id
     List(PUID:Quantity)
 
 CustomerOrderInformation
 
 ProductIDGenerator
+
 ProductInformation
-    PUID
+    *PUID
     retail-id
     title
     features
@@ -34,19 +49,20 @@ ProductInformation
         weight
 
 ProductSellingInformation
+    *PUID
     selling-price
     source-vendor
 
 ProductDescription
-    PUID
+    *PUID
     description
 
 ProductReviews
-    PUID
+    *PUID
     List(cust-id:review)    
 
 ProductInventoryInformation
-    PUID
+    *PUID
     Quantity
     location
 
@@ -61,6 +77,7 @@ VendorInformation
     email-id
     address
     selling-product-lines
+    contactInfo
 
 VendorContribution
     vendor-id

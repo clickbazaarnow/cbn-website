@@ -2,36 +2,51 @@ extend layout
 block details-pane
     form(class="main" name="registrationForm" ng-controller="registrationCtrl" ng-init="init(#{JSON.stringify(mode)})" novalidate)
         if mode == 'edit'
-            h1(class="heading") <b>Update Personal Information</b>
+            h1(class="heading") Update Personal Information
         else
-            h1(class="heading") <b>Register Personal Information</b>
+            h1(class="heading") Register Personal Information
         div(class="element")
-            span(class="textDetails") <b>Full Name :</b> 
+            span(class="textDetails") Full Name : 
             input(class="inputDetails" ng-model="name" name="name" required)
             span(class="inputError" ng-show="registrationForm.name.$dirty && registrationForm.name.$error.required") Please enter your full name
         div(class="element")
-            font(class="textDetails") <b>Email ID :</b> 
-            input(class="inputDetails" ng-model="email" name="email" validate-email="email")
+            font(class="textDetails") Email ID : 
+            input(class="inputDetails" ng-model="username" name="email" validate-email="email")
             span(class="inputError" ng-show="registrationForm.email.$dirty && registrationForm.email.$error.email") Please enter valid email
         if mode != 'edit'
             div(class="element")
-                font(class="textDetails") <b>Retype Email ID :</b> 
+                font(class="textDetails") Retype Email ID :
                 input(class="inputDetails" ng-model="emailRepeat" name="emailRepeat" match-email="emailRepeat")
                 span(class="inputError" ng-show="registrationForm.emailRepeat.$dirty && registrationForm.emailRepeat.$error.email") Please enter valid email
         div(class="element")
-            font(class="textDetails") <b>Mobile Number :</b> 
+            font(class="textDetails") Mobile Number : 
             input(class="inputDetails" ng-model="mobile" name="mobile" required)
             span(class="inputError" ng-show="registrationForm.mobile.$dirty && registrationForm.mobile.$error.required") Please enter valid mobile number
         if mode != 'edit'
             div(class="element")
-                font(class="textDetails") <b>Enter new password :</b> 
-                input(class="inputDetails" ng-model="password")
+                font(class="textDetails") Enter new password :
+                input(type="password" class="inputDetails" ng-model="password")
             div(class="element")
-                font(class="textDetails") <b>Retype password :</b> 
-                input(class="inputDetails" ng-model="passwordRepeat")
+                font(class="textDetails") Retype password : 
+                input(type="password" class="inputDetails" ng-model="passwordRepeat")
+        div(class="element")
+            font(class="textDetails") Address Line 1 :
+            input(class="inputDetails" ng-model="addressLine1")
+        div(class="element")
+            font(class="textDetails") Address Line 2 :
+            input(class="inputDetails" ng-model="addressLine2")
+        div(class="element")
+            font(class="textDetails") City :
+            input(class="inputDetails" ng-model="city")
+        div(class="element")
+            font(class="textDetails") State :
+            input(class="inputDetails" ng-model="state")
+        div(class="element")
+            font(class="textDetails") Zip Code :
+            input(class="inputDetails" ng-model="zipcode")
         if mode == 'edit'
             div(class="submitBtnDiv")
                 button(class="submitBtn") Update Account
         else
-            div(class="submitBtnDiv")
+            div(class="submitBtnDiv" ng-click="createAccount()")
                 button(class="submitBtn") Create Account

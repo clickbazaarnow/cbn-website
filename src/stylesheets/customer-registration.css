@@ -10,8 +10,9 @@
 .heading{
     color:orange;
     text-align:left;
-    font-size: 25px;
+    font-size:25px;
     padding-left:25px;
+    font-weight:bold;
 }
 .textDetails{
     font-size: 15px;
@@ -19,6 +20,7 @@
     width:200px;
     text-align:right;
     padding-right:5px;
+    font-weight: bold;
 }
 .inputDetails{
     width:300px;

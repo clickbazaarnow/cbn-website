@@ -1,0 +1,13 @@
+extend layout
+block details-pane
+	form(class="main" name="loginForm" ng-controller="loginCtrl" novalidate)
+		h1(class="heading") Sign In
+		div(class="element")
+			span(class="textDetails") Email ID :
+			input(class="inputDetails" ng-model="username" name="email" validate-email="email")
+			span(class="inputError" ng-show="registrationForm.email.$dirty && registrationForm.email.$error.email") Please enter valid email
+		div(class="element")
+			font(class="textDetails") Enter password :
+			input(type="password" class="inputDetails" ng-model="password")
+		div(class="submitBtnDiv" ng-click="login()")
+			button(class="submitBtn") Login

@@ -1,3 +1,4 @@
+source .env
 if [ ! -d "build" ]; then
     mkdir -p build/node-root
     mkdir -p build/output/logs

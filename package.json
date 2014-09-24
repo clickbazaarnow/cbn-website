@@ -11,6 +11,15 @@
         "aws-sdk":"*",
         "vogels":"*",
         "mocha":"*",
-        "should":"*"
+        "should":"*",
+        "body-parser":"*",
+        "passport":"*",
+        "passport-stormpath":"*",
+        "express-session":"*",
+        "connect-flash":"*",
+        "stormpath":"*",
+        "cookie-parser":"*",
+        "express-jwt":"*",
+        "jsonwebtoken":"*"
     }
 }

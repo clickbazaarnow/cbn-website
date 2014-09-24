@@ -140,3 +140,9 @@
     margin-top:30px;
     left:-15px;
 }
+.username {
+    position:relative;
+    float:left;
+    padding-left:860px;
+    top:-45px;
+}
