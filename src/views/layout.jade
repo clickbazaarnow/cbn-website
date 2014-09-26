@@ -10,17 +10,17 @@ html(lang="en" ng-app="cbn")
         .header
             div(class="logo")
                 img(class="logoImg" src="/images/logo.png")
-            div(class="headerLower" ng-controller="mainCtrl" ng-init="init()")
+            div(class="headerLower" ng-controller="layoutCtrl" ng-init="init()")
                 span(class="fadingLine")
                 input(class="searchBar" ng-model="query" placeholder="Search for product..." required)
                 input(class="searchButton" type="button" value="Search")
-                div(class="trackArrowDown")
-                a(class="trackButton" href="") Track your order
-                div(class="cartArrowDown")
-                a(class="cartButton" href="") Cart
-                div(class="accountArrowDown")
-                a(class="accountButton" href="/render?name=registration") Your Account
                 div(class="username" ng-show="isUsername") {{username}}
+                a(class="accountButton" href="/render?name=login") Your Account
+                div(class="accountArrowDown")
+                a(class="cartButton" href="") Cart
+                div(class="cartArrowDown")
+                a(class="trackButton" href="") Track your order
+                div(class="trackArrowDown")
         .details
             block details-pane
         .alert

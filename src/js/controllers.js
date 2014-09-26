@@ -85,9 +85,8 @@ cbnApp.controller('loginCtrl', function($scope, $http, $location, $window) {
         });
     }
 });
-cbnApp.controller('mainCtrl', function($scope, $window) {
+cbnApp.controller('layoutCtrl', function($scope, $window) {
     $scope.init = function() {
-        console.log("mainCtrl is called");
         if($window.sessionStorage.cbnUser) {
             $scope.isUsername = true;
             $scope.username = "Hello, " + $window.sessionStorage.cbnUser
