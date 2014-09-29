@@ -10,3 +10,5 @@ Buy logo from
 http://www.graphicsprings.com
 
 StormPath Tenant : hungry-crusher
+
+Use Bootstrap as much as possible for CSS components

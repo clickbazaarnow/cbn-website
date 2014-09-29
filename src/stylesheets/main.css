@@ -34,7 +34,8 @@
 }
 .headerLower{
     height:50px;
-    width:1500px;
+    width:100%;
+    min-width:1400px;
     background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #F2F2F2), color-stop(1, #F2F2F2) );
     background: -moz-linear-gradient( center top, #F2F2F2 5%, #F2F2F2 100% );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F2F2F2', endColorstr='#F2F2F2');
@@ -143,6 +144,6 @@
 .username {
     position:relative;
     float:left;
-    padding-left:55.75%;
+    padding-left:58%;
     top:-45px;
 }
