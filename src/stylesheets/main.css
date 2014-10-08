@@ -19,6 +19,7 @@
 }
 .logo{
     width:100px;
+    display:inline-block;
 }
 .logoImg{
     width:200px;
@@ -146,4 +147,10 @@
     display:inline-block;
     left:-140px;
     top:-15px;
+}
+.signoutLink {
+    float:right;
+}
+.signoutText {
+    
 }

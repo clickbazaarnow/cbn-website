@@ -8,20 +8,23 @@ html(lang="en" ng-app="cbn")
         script(src="/js/controllers.js")
     body
         .header
-            div(class="logo")
-                img(class="logoImg" src="/images/logo.png")
-            div(class="headerLower" ng-controller="layoutCtrl" ng-init="init()")
-                span(class="fadingLine")
-                input(class="searchBar" ng-model="query" placeholder="Search for product..." required)
-                input(class="searchButton" type="button" value="Search")
-                a(class="accountButton" href="#" ng-click="accountLink()") Your Account
-                div(class="accountArrowDown")
-                div(class="username" ng-show="isUsername") {{username}}
-                div(class="username" ng-show="shouldsignin") SignUp/SignIn
-                a(class="cartButton" href="") Cart
-                div(class="cartArrowDown")
-                a(class="trackButton" href="") Track your order
-                div(class="trackArrowDown")
+            div(ng-controller="layoutCtrl" ng-init="init()")
+                div(class="logo")
+                    img(class="logoImg" src="/images/logo.png")
+                div(class="signoutLink")
+                    a(class="signoutText" href="" ng-click="signout()") Sign Out
+                div(class="headerLower")
+                    span(class="fadingLine")
+                    input(class="searchBar" ng-model="query" placeholder="Search for product..." required)
+                    input(class="searchButton" type="button" value="Search")
+                    a(class="accountButton" href="#" ng-click="accountLink()") Your Account
+                    div(class="accountArrowDown")
+                    div(class="username" ng-show="isUsername") {{username}}
+                    div(class="username" ng-show="shouldsignin") SignUp/SignIn
+                    a(class="cartButton" href="") Cart
+                    div(class="cartArrowDown")
+                    a(class="trackButton" href="") Track your order
+                    div(class="trackArrowDown")
         .details
             block details-pane
         .alert

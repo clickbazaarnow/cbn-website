@@ -95,11 +95,19 @@ cbnApp.controller('layoutCtrl', function($scope, $window) {
         }
     }
     $scope.accountLink = function() {
-        if(!$scope.username || $scope.username.length == 0) {
+        if(!$window.sessionStorage.cbnUser || $window.sessionStorage.cbnUser == 0) {
             $window.location.href = '/render?name=login';
         } else {
             //TODO redirect to Customer account page
         }
+    }
+    $scope.signout = function() {
+        console.log("signout is called");
+        $window.sessionStorage.token = "";
+        $window.sessionStorage.cbnUser = "";
+        $scope.shouldsignin = true;
+        $scope.isUsername = false;
+
     }
 });
 var EMAIL_REGEX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
