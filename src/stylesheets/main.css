@@ -143,7 +143,7 @@
 }
 .username {
     position:relative;
-    float:left;
-    padding-left:58%;
-    top:-45px;
+    display:inline-block;
+    left:-140px;
+    top:-15px;
 }

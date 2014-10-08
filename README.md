@@ -12,3 +12,4 @@ http://www.graphicsprings.com
 StormPath Tenant : hungry-crusher
 
 Use Bootstrap as much as possible for CSS components
+explore three.js (webGL) for render 3d objects on the browser

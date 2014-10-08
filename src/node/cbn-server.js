@@ -6,12 +6,16 @@ var connectDomain = require('connect-domain');
 var fs = require('fs');
 var path = require('path');
 
-var cookieParser = require('cookie-parser');
+//User Authentication
 var passport = require('passport');
-var StormpathStrategy = require('passport-stormpath');
-var stormpath = require('stormpath');
-var session = require('express-session');
 var flash = require('connect-flash');
+var StormpathStrategy = require('passport-stormpath');
+var session = require('express-session');
+var strategy = new StormpathStrategy();
+passport.use(strategy);
+passport.serializeUser(strategy.serializeUser);
+passport.deserializeUser(strategy.deserializeUser);
+
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
 
@@ -49,11 +53,7 @@ app.set('views', path.join(ROOT_DIR, 'views'));
 app.set('view engine', 'jade');
 app.use(express.static(path.join(ROOT_DIR, 'public')));
 app.use(bodyParser.json());
-var strategy = new StormpathStrategy();
-passport.use(strategy);
-passport.serializeUser(strategy.serializeUser);
-passport.deserializeUser(strategy.deserializeUser);
-app.use(cookieParser());
+app.use('/api', expressJwt({secret: process.env.EXPRESS_SECRET}));
 app.use(session({
   secret: process.env.EXPRESS_SECRET,
   key: 'sid',
@@ -61,10 +61,14 @@ app.use(session({
   saveUninitialized: true,
   resave: true
 }));
-app.use('/api', expressJwt({secret: process.env.EXPRESS_SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+// Business Objects
+var AccountManager = require("./account-manager");
+var accountManager = new AccountManager(process.env['STORMPATH_API_KEY_ID'], process.env['STORMPATH_API_KEY_SECRET'], process.env['STORMPATH_APP_HREF'], log);
+
 app.use(connectDomain())
     .get('/', function(req, res){
         res.render('layout', {});
@@ -97,56 +101,35 @@ app.use(connectDomain())
         if (!username || !password) {
             return res.send({title: 'Register', error: 'Email and password required.'});
         }
-
-        // Initialize our Stormpath client.
-        var apiKey = new stormpath.ApiKey(
-            process.env['STORMPATH_API_KEY_ID'],
-            process.env['STORMPATH_API_KEY_SECRET']
-        );
-        var spClient = new stormpath.Client({ apiKey: apiKey });
-
-        // Grab our app, then attempt to create this user's account.
-        var app = spClient.getApplication(process.env['STORMPATH_APP_HREF'], function(err, app) {
-            if (err) throw err;
-            app.createAccount({
-                givenName: 'John',
-                surname: 'Smith',
-                username: username,
-                email: username,
-                password: password,
-            }, function (err, createdAccount) {
-                if (err) {
-                    return res.send({title: 'Register', error: err.userMessage});
-                } else {
-                    passport.authenticate('stormpath')(req, res, function () {
-                        log.info("created user account");
-                        return res.send({response:"success"});
-                    });
-                }
-            });
+        accountManager.createAccount(username, password, 'Lucy', 'Ramoji', function(err, data) {
+            if(err) {
+                return res.send({title: 'Register', error: err.userMessage});
+            } else {
+                return res.send({isAccountCreated:data.isAccountCreated});
+            }
         });
     })
     .post('/login', passport.authenticate('stormpath'), function(req, res) {
         if(req.user) {
-            log.info("successfully authenticated the user : ", req.user);
+            log.info("successfully authenticated the user: ", req.user);
             req.login(req.user, function(err) {
                 if(err) {
                     log.info("couldn't login the user : ", err);
                 } else {
                     var profile = {
-                        first_name: 'John',
-                        last_name: 'Doe',
-                        email: 'john@doe.com',
+                        first_name: 'Lucy',
+                        last_name: 'Hemchand',
+                        email: 'lucy@lucy.com',
                         id: 123
                     };
 
                     // We are sending the profile inside the token
                     var token = jwt.sign(profile, process.env.EXPRESS_SECRET, { expiresInMinutes: 60*5 });
-                    res.send({token:token, username:'Sudheer'});
+                    res.send({token:token, username:'Lucy', isAuthenticated:true});
                 }
             });
         } else {
-            res.send({response:"failure"});
+            res.send({isAuthenticated:false});
         }
     })
     .use(function(err, req, res, next) {

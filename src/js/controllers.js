@@ -87,9 +87,18 @@ cbnApp.controller('loginCtrl', function($scope, $http, $location, $window) {
 });
 cbnApp.controller('layoutCtrl', function($scope, $window) {
     $scope.init = function() {
+        $scope.shouldsignin = true;
         if($window.sessionStorage.cbnUser) {
             $scope.isUsername = true;
+            $scope.shouldsignin = false;
             $scope.username = "Hello, " + $window.sessionStorage.cbnUser
+        }
+    }
+    $scope.accountLink = function() {
+        if(!$scope.username || $scope.username.length == 0) {
+            $window.location.href = '/render?name=login';
+        } else {
+            //TODO redirect to Customer account page
         }
     }
 });

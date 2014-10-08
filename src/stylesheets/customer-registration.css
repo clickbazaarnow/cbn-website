@@ -50,3 +50,12 @@
     float:right;
     padding-right:5px;
 }
+.joinUsButton {
+    border:2px solid #207cca;
+    background-color:#207cca;
+    color:#fafafa;
+    font-size:15px;
+    display:inline-block;
+    float: right;
+    margin: 25px;
+}

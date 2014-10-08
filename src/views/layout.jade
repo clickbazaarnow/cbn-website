@@ -14,9 +14,10 @@ html(lang="en" ng-app="cbn")
                 span(class="fadingLine")
                 input(class="searchBar" ng-model="query" placeholder="Search for product..." required)
                 input(class="searchButton" type="button" value="Search")
-                div(class="username" ng-show="isUsername") {{username}}
-                a(class="accountButton" href="/render?name=login") Your Account
+                a(class="accountButton" href="#" ng-click="accountLink()") Your Account
                 div(class="accountArrowDown")
+                div(class="username" ng-show="isUsername") {{username}}
+                div(class="username" ng-show="shouldsignin") SignUp/SignIn
                 a(class="cartButton" href="") Cart
                 div(class="cartArrowDown")
                 a(class="trackButton" href="") Track your order
