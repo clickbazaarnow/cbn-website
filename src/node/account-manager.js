@@ -8,7 +8,7 @@ function AccountManager(apiKey, apiSecret, stormpathHREF, log) {
     this.spClient = new stormpath.Client({ apiKey: apiKey });
 }
 
-AccountManager.prototype.createAccount = function(username, password, firstName, lastName, cb) {
+AccountManager.prototype.createLogin = function(username, password, firstName, lastName, cb) {
 	var self = this;
 	self.log.info("createAccount is successfully called");
     var stormpathProxy = self.spClient.getApplication(self.stormpathHREF, function(err, stormpathProxy) {

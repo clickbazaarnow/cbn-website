@@ -12,7 +12,7 @@ html(lang="en" ng-app="cbn")
                 div(class="logo")
                     img(class="logoImg" src="/images/logo.png")
                 div(class="signoutLink")
-                    a(class="signoutText" href="" ng-click="signout()") Sign Out
+                    a(class="signoutText" href="" ng-click="signout()" ng-show="isUsername") Sign Out
                 div(class="headerLower")
                     span(class="fadingLine")
                     input(class="searchBar" ng-model="query" placeholder="Search for product..." required)

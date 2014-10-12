@@ -5,6 +5,8 @@ var cluster = require('cluster');
 var connectDomain = require('connect-domain');
 var fs = require('fs');
 var path = require('path');
+var dynamodb = require("vogels");
+dynamodb.AWS.config.loadFromPath(".clickbazaarnow")
 
 //User Authentication
 var passport = require('passport');
@@ -15,6 +17,9 @@ var strategy = new StormpathStrategy();
 passport.use(strategy);
 passport.serializeUser(strategy.serializeUser);
 passport.deserializeUser(strategy.deserializeUser);
+
+//business objects
+var CustomerInformation = require("./dynamodbTables/customer-information");
 
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
@@ -93,7 +98,6 @@ app.use(connectDomain())
         res.send(userInfo);
     })
     .post('/customer', function(req, res) {
-        console.log(req.body);
         var username = req.body.username;
         var password = req.body.password;
 
@@ -101,11 +105,36 @@ app.use(connectDomain())
         if (!username || !password) {
             return res.send({title: 'Register', error: 'Email and password required.'});
         }
-        accountManager.createAccount(username, password, 'Lucy', 'Ramoji', function(err, data) {
-            if(err) {
-                return res.send({title: 'Register', error: err.userMessage});
+        //TODO : validate rest of the input
+        customerInfo = new CustomerInformation(dynamodb, log);
+        customerInfo.setName(req.body.name);
+        customerInfo.setEmailId(req.body.username);
+        customerInfo.setMobile(req.body.mobile);
+        customerInfo.setAddressLine1(req.body.addressLine1);
+        customerInfo.setAddressLine2(req.body.addressLine2);
+        customerInfo.setCity(req.body.city);
+        customerInfo.setState(req.body.state);
+        customerInfo.setZipCode(req.body.zipcode);
+        customerInfo.setUpdatedBy('cbn');
+        customerInfo.createAccount(function(err, data) {
+            if (err) {
+                return res.send({title: 'Register', error: err});
             } else {
-                return res.send({isAccountCreated:data.isAccountCreated});
+                //Creating Login for the customer
+                accountManager.createLogin(username, password, req.body.name, req.body.name, function(err, data) {
+                    if(err) {
+                        return res.send({title: 'Login', error: err.userMessage});
+                    } else {
+                        //Account creation is successful and now activating the account.
+                        customerInfo.activate(function(err, data) {
+                            if(err) {
+                                return res.send({title: 'Activate', error: err});
+                            } else {
+                                return res.send({isAccountCreated:true});
+                            }
+                        });
+                    }
+                });
             }
         });
     })
@@ -117,15 +146,15 @@ app.use(connectDomain())
                     log.info("couldn't login the user : ", err);
                 } else {
                     var profile = {
-                        first_name: 'Lucy',
-                        last_name: 'Hemchand',
-                        email: 'lucy@lucy.com',
-                        id: 123
+                        first_name: req.user.givenName,
+                        last_name: req.user.surname,
+                        email: req.user.username,
+                        id: 8683643864
                     };
 
                     // We are sending the profile inside the token
                     var token = jwt.sign(profile, process.env.EXPRESS_SECRET, { expiresInMinutes: 60*5 });
-                    res.send({token:token, username:'Lucy', isAuthenticated:true});
+                    res.send({token:token, username:req.user.givenName, isAuthenticated:true});
                 }
             });
         } else {
