@@ -13,3 +13,5 @@ StormPath Tenant : hungry-crusher
 
 Use Bootstrap as much as possible for CSS components
 explore three.js (webGL) for render 3d objects on the browser
+
+See if we can use http://dyn.com/standard-dns/ for beta launch

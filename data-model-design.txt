@@ -15,6 +15,7 @@ CustomerInformation
         zip-code
     updatedTime
     updatedBy
+    version
 
 
 
@@ -39,16 +40,20 @@ ProductIDGenerator
 
 ProductInformation
     *PUID
+    retail-id-type
     retail-id
     title
-    features
+    features (each feature is separated with '|')
     is-displayable
-    have-children
-    ProductDetails
-        dimensions
-        weight
+    version
 
-ProductSellingInformation
+ProductTechnicalInformation
+    *PUID
+    dimensions
+    item-weight
+    model
+
+ProductSellingInformation (will contain reconciled information)
     *PUID
     selling-price
     source-vendor
@@ -59,12 +64,13 @@ ProductDescription
 
 ProductReviews
     *PUID
-    List(cust-id:review)    
+    List(cust-id:review)  
 
 ProductInventoryInformation
     *PUID
     Quantity
     location
+
 
 ProductRelationships
     parent-PUID

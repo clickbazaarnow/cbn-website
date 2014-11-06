@@ -12,6 +12,7 @@ function CustomerInformation(dynamodb, logger) {
   		schema.Boolean('isActive', {default: false});
         schema.Date('updatedTime', {default: Date.now});
         schema.String('updatedBy');
+        schema.Number('version');
     });
     this.customerInfo.config({tableName: 'CustomerInformation'});
     this.custInfo = {};
@@ -56,6 +57,10 @@ CustomerInformation.prototype.setIsActive = function(custIsActive) {
 
 CustomerInformation.prototype.setUpdatedBy = function(custUpdatedBy) {
 	this.custInfo.updatedBy = custUpdatedBy;
+}
+
+CustomerInformation.prototype.setVersion = function(version) {
+    this.custInfo.version = version;
 }
 
 CustomerInformation.prototype.createAccount = function(cb) {

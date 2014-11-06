@@ -1,0 +1,61 @@
+Introduction
+    The backend data model for CBN is completely developed on Amazon dynamodb which is schema less and well scalable database. There are two primary limitations for using dynamodb.
+    1. Each record can only take up to 64 KB of data size. This is inherent property when we want a database to scale horizontally
+    2. There is no concept of transaction between tables or between multiple items within dynamodb.
+    CBN needs to store thousands of catalog attributes for each item which can span well beyond 64 KB. To overcome this disadvantge, CBN instead of storing all the catalog attributes in one table, there will be multiple tables that we store a sub set of catalog attributes. This design will fix first issue mentioned above but will open doors for second issue when we have multiple tables serving one logical entity, the read and writes needs to be consistent for which we need transactions. This document will propose how CBN solves the transaction problem.
+
+Design
+    Any trasactionable backend table that CBN designs will have two parts which are CBN consumer table and CBN producer table. The producer table will be immutable. For example, for storing customer information, CBN will have cbn_cust_info (consumer table) and cbn_cust_info_factory (producer table).
+    cbn_cust_info (custId, custFactoryId, copy, lockedBy, transient, updateDate, updateBy, version)
+        custId : Unique Id to identify the customer. This is hashKey
+        custFactoryId : This will be range key to identify customer record in cbn_cust_info_factory table
+        copy : serialized copy of the of the record custFactoryId in cbn_cust_info_factory table
+        lockedby : This will be transaction id which be explained next
+        transient : Is this a existing recond or newly created one
+        version : for conditional writes
+    cbn_cust_info_factory (custId, custFactoryId, name, mobile, addressLine1, addressLine2, city, state, zipcode, updatedTime, updatedBy)
+        custId : Unique Id to identify the customer. This is hashKey
+        custFactoryId : Range Key to uniquely identify the customer record. This will be sequential number
+    Since cbn_cust_info_factory is immutable there will be only creates and never updates on this table.
+    CBN will design global transaction table which will be used for all CBN transactions
+    cbn_trasaction (transactionId, status, requests, version)
+        transactionId : This will be UUID for a transaction. This is hashKey
+        status : Status of transaction. PENDING, COMMITTED, CANCEL. COMMITTED and CANCEL are final states.
+        requests : Requests involved in the transaction
+        version : for conditional writes
+
+    Algorithm for transaction
+    1. Create transaction id, aaaa in cbn_trasaction table with status PENDING (WRITE)
+    2. Read records from CBN consumer tables which needs to be updated. For example cbn_cust_info and cbn_cust_shipping_info (READ)
+    3. Lock the records from step 2 by updating lockedBy field in consumer tables with the transaction id created in step 1 which is aaaa. (WRITE)
+    4. Using factoryId from step 2, read records from corresponding producer tables (READ)
+    5. Locally modify the records from step 4 and create them as new records in producer tables (WRITE)
+    6. Update requests field in cbn_trasaction by appending consumer table name, primary key, range key generated in step 5 to transaction id aaaa and simultanueosly change status to COMMITTED (WRITE)
+    7. Update consumer tables with new range keys and the corresponding copy generated in step 5 and remove the locks (WRITE)
+
+    Performance : ( 5 WRITES + 2 READS ) *  number of items in the transaction
+
+    Reading a record from a consumer table
+    1. When a record is read from a consumer table, check if the record is locked by a transaction (READ)
+    2.1 IF NO, return the desearialized copy
+    2.2 IF YES, read transaction record and check the status of the transaction (READ)
+    2.2.1 IF COMMITTED, find the hash key and range key from the transaction record and read the new record from the producer table (READ)
+    2.2.2 IF PENDING or CANCEL, return the desearialized copy from the consumer table
+
+    Performace : IF locked 2 READS, ELSE 1 READ
+
+    Writes on locked records
+    1. Check the status of the trasaction
+    2.1 If the status is COMMITTED, apply transaction algorithm by picking the committed records from the transaction table
+    2.2 if the status is CANCEL, apply transaction algorithm by using the existing records from consumer table
+    2.3.1 if the status is PENDING and timed out, apply transaction algorithm by using the existing records from consumer table
+    2.3.2 if the status is PENDING and not timed out, push to SQS with message timer (Design transaction processing from SQS)
+    
+Questions
+    1. How to deal with contentions ?
+       CBN will have a timeout for any transaction, if the trasaction takes more than timeout, then any other thread blocked by this transaction can terminate it by moving it into CANCEL state.
+    2. Scenarious on when a transaction will be set to CANCEL ?
+       Any non retryable error thrown during the transaction will set the transaction to CANCEL
+    3. With the above design, how will search queries work?
+       Use cloud search
+

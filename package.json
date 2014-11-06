@@ -20,6 +20,7 @@
         "stormpath":"*",
         "cookie-parser":"*",
         "express-jwt":"*",
-        "jsonwebtoken":"*"
+        "jsonwebtoken":"*",
+        "excel":"*"
     }
 }
