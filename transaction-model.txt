@@ -1,11 +1,11 @@
 Introduction
     The backend data model for CBN is completely developed on Amazon dynamodb which is schema less and well scalable database. There are two primary limitations for using dynamodb.
-    1. Each record can only take up to 64 KB of data size. This is inherent property when we want a database to scale horizontally
+    1. Each record can only take up to 64 KB of data size. This is inherent property when we want a key-value store to scale horizontally
     2. There is no concept of transaction between tables or between multiple items within dynamodb.
     CBN needs to store thousands of catalog attributes for each item which can span well beyond 64 KB. To overcome this disadvantge, CBN instead of storing all the catalog attributes in one table, there will be multiple tables that we store a sub set of catalog attributes. This design will fix first issue mentioned above but will open doors for second issue when we have multiple tables serving one logical entity, the read and writes needs to be consistent for which we need transactions. This document will propose how CBN solves the transaction problem.
 
 Design
-    Any trasactionable backend table that CBN designs will have two parts which are CBN consumer table and CBN producer table. The producer table will be immutable. For example, for storing customer information, CBN will have cbn_cust_info (consumer table) and cbn_cust_info_factory (producer table).
+    Any trasactionable backend table that CBN designs will have two parts namely CBN consumer table and CBN producer table. The producer table will be immutable. For example, for storing customer information, CBN will have cbn_cust_info (consumer table) and cbn_cust_info_factory (producer table).
     cbn_cust_info (custId, custFactoryId, copy, lockedBy, transient, updateDate, updateBy, version)
         custId : Unique Id to identify the customer. This is hashKey
         custFactoryId : This will be range key to identify customer record in cbn_cust_info_factory table
@@ -17,6 +17,7 @@ Design
         custId : Unique Id to identify the customer. This is hashKey
         custFactoryId : Range Key to uniquely identify the customer record. This will be sequential number
     Since cbn_cust_info_factory is immutable there will be only creates and never updates on this table.
+
     CBN will design global transaction table which will be used for all CBN transactions
     cbn_trasaction (transactionId, status, requests, version)
         transactionId : This will be UUID for a transaction. This is hashKey
@@ -46,7 +47,7 @@ Design
 
     Writes on locked records
     1. Check the status of the trasaction
-    2.1 If the status is COMMITTED, apply transaction algorithm by picking the committed records from the transaction table
+    2.1 If the status is COMMITTED and timed out, apply transaction algorithm by picking the committed records from the transaction table
     2.2 if the status is CANCEL, apply transaction algorithm by using the existing records from consumer table
     2.3.1 if the status is PENDING and timed out, apply transaction algorithm by using the existing records from consumer table
     2.3.2 if the status is PENDING and not timed out, push to SQS with message timer (Design transaction processing from SQS)
